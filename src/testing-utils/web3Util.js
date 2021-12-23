@@ -24,7 +24,7 @@ export async function setupWeb3({ Web3, provider }) {
     const id = `${await web3.eth.net.getId()}`
     const networkProvider = getNetworkProviderUrl(id)
     web3Read = new Web3(
-      networkProvider === 'private' ? window.ethereum : networkProvider
+        networkProvider === 'private' ? window.ethereum : networkProvider
     )
     return web3
   } else if (window.web3 && window.web3.currentProvider) {
@@ -32,9 +32,9 @@ export async function setupWeb3({ Web3, provider }) {
     const id = `${await web3.eth.net.getId()}`
     const networkProvider = getNetworkProviderUrl(id)
     web3Read = new Web3(
-      networkProvider === 'private'
-        ? window.web3.currentProvider
-        : networkProvider
+        networkProvider === 'private'
+            ? window.web3.currentProvider
+            : networkProvider
     )
     return web3
   } else {
@@ -46,14 +46,14 @@ export async function setupWeb3({ Web3, provider }) {
       web3Read = web3
     } catch (error) {
       if (
-        error.readyState === 4 &&
-        (error.status === 400 || error.status === 200)
+          error.readyState === 4 &&
+          (error.status === 400 || error.status === 200)
       ) {
         // the endpoint is active
         console.log('Success')
       } else {
         console.log(
-          'No web3 instance injected. Falling back to cloud provider.'
+            'No web3 instance injected. Falling back to cloud provider.'
         )
         readOnly = true
         web3 = new Web3(getNetworkProviderUrl('1'))
@@ -67,7 +67,7 @@ export async function setupWeb3({ Web3, provider }) {
 export async function getWeb3() {
   if (!web3) {
     throw new Error(
-      'Web3 has not been instantiated, please call setupWeb3() first'
+        'Web3 has not been instantiated, please call setupWeb3() first'
     )
   }
   return web3
@@ -76,7 +76,7 @@ export async function getWeb3() {
 export async function getWeb3Read() {
   if (!web3Read) {
     throw new Error(
-      'Web3 has not been instantiated, please call setupWeb3() first'
+        'Web3 has not been instantiated, please call setupWeb3() first'
     )
   }
   return web3Read
@@ -96,6 +96,8 @@ function getNetworkProviderUrl(id) {
       return `https://rinkeby.infura.io/v3/90f210707d3c450f847659dc9a3436ea`
     case '5':
       return `https://goerli.infura.io/v3/90f210707d3c450f847659dc9a3436ea`
+    case '137':
+      return `https://polygon-mainnet.infura.io/v3/90f210707d3c450f847659dc9a3436ea`
     default:
       return 'private'
   }

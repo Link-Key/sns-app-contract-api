@@ -10,8 +10,8 @@ let requested = false
 let address
 
 function getDefaultProvider() {
-  legacyProvider = new Web3(getNetworkProviderUrl(1))
-  return new ethers.getDefaultProvider('homestead', 'any')
+  legacyProvider = new Web3(getNetworkProviderUrl(137))
+  return new ethers.getDefaultProvider('matic', 'any')
 }
 
 function getJsonRpcProvider(providerOrUrl) {
@@ -25,17 +25,17 @@ function getWeb3Provider(providerOrUrl) {
 }
 
 function getInfuraProvider(infura) {
-  legacyProvider = new Web3(`https://mainnet.infura.io/v3/${infura}`)
-  return new ethers.providers.InfuraProvider('homestead', infura)
+  legacyProvider = new Web3(`https://polygon-mainnet.infura.io/v3/${infura}`)
+  return new ethers.providers.InfuraProvider('matic', infura)
 }
 
 export async function setupWeb3({
-  customProvider,
-  reloadOnAccountsChange = false,
-  enforceReadOnly = false,
-  enforceReload = false,
-  infura = false
-}) {
+                                  customProvider,
+                                  reloadOnAccountsChange = false,
+                                  enforceReadOnly = false,
+                                  enforceReload = false,
+                                  infura = false
+                                }) {
   if (enforceReload) {
     provider = null
     readOnly = false
@@ -79,7 +79,7 @@ export async function setupWeb3({
         iframeProvider.enable(),
         // Race the enable with a promise that rejects after 1 second
         new Promise((_, reject) =>
-          setTimeout(() => reject(new Error('Timed out after 1 second')), 1000)
+            setTimeout(() => reject(new Error('Timed out after 1 second')), 1000)
         )
       ])
 
@@ -116,14 +116,14 @@ export async function setupWeb3({
       provider = getJsonRpcProvider(url)
     } catch (error) {
       if (
-        error.readyState === 4 &&
-        (error.status === 400 || error.status === 200)
+          error.readyState === 4 &&
+          (error.status === 400 || error.status === 200)
       ) {
         // the endpoint is active
         console.log('Success')
       } else {
         console.log(
-          'No web3 instance injected. Falling back to cloud provider.'
+            'No web3 instance injected. Falling back to cloud provider.'
         )
         readOnly = true
         provider = getDefaultProvider()
@@ -136,7 +136,7 @@ export async function setupWeb3({
 export async function getWeb3() {
   if (!provider) {
     throw new Error(
-      'Ethers has not been instantiated, please call setupWeb3() first'
+        'Ethers has not been instantiated, please call setupWeb3() first'
     )
   }
   return provider
@@ -145,7 +145,7 @@ export async function getWeb3() {
 export async function getWeb3Read() {
   if (!provider) {
     throw new Error(
-      'Ethers has not been instantiated, please call setupWeb3() first'
+        'Ethers has not been instantiated, please call setupWeb3() first'
     )
   }
   return provider
@@ -168,7 +168,7 @@ export function getNetworkProviderUrl(id) {
     case '137':
       return `https://polygon-mainnet.infura.io/v3/5a380f9dfbb44b2abf9f681d39ddc382`
     default:
-      return `https://mainnet.infura.io/v3/5a380f9dfbb44b2abf9f681d39ddc382`
+      return `https://polygon-mainnet.infura.io/v3/5a380f9dfbb44b2abf9f681d39ddc382`
   }
 }
 
