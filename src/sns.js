@@ -143,7 +143,13 @@ export class SNS {
 
   //Paid regist
   async mint(name) {
-    const tx = await this.SNS.mint(nameRemoveSuffix(name))
+    let tx ;
+    this.SNS.mint(nameRemoveSuffix(name)).then(res =>{
+      tx = res;
+      console.log("tx-----",tx);
+    }).catch(e =>{
+      console.log("e-----",e);
+    })
     console.log("tx-----",tx);
     return sendHelper(tx)
   }
