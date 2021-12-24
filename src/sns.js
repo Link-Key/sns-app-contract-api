@@ -143,6 +143,7 @@ export class SNS {
 
   //Paid regist
   async mint(name) {
+    debugger
     let tx ;
     this.SNS.mint(nameRemoveSuffix(name)).then(res =>{
       tx = res;
