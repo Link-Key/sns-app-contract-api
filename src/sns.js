@@ -143,7 +143,9 @@ export class SNS {
 
   //Paid regist
   async mint(name) {
-    return await this.SNS.mint(nameRemoveSuffix(name))
+    const tx = await this.SNS.mint(nameRemoveSuffix(name))
+    console.log("tx-----",tx);
+    return sendHelper(tx)
   }
 
   // sns name transfer
