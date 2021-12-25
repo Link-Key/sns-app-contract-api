@@ -56,7 +56,7 @@ const contracts = {
     registry: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e'
   },
   137: {
-    registry: '0x35d1e14934fdCe97E893AC1122e1D9Cd6Bbd21cc'
+    registry: '0x9EE1bC9739fdF1a28c71Ee68C36beaC7FCbEd5CB'
   }
 }
 
@@ -144,7 +144,6 @@ export class SNS {
   //Paid regist
   async mint(name) {
     const tx = await this.SNS.mint(nameRemoveSuffix(name));
-    console.log("tx-----",tx);
     return sendHelper(tx)
   }
 
