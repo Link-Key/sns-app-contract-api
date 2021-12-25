@@ -127,7 +127,7 @@ export class SNS {
     const signer = await getSigner()
     const SNS = this.SNS.connect(signer)
     const account = await getAccount()
-    let flag = (await SNS.isOverDeadline()) && (await SNS.getWhitelist(account))
+    let flag = (!await SNS.isOverDeadline()) && (await SNS.getWhitelist(account))
     if (flag) {
       return await SNS.freeMint(nameRemoveSuffix(name))
     } else {
