@@ -56,7 +56,7 @@ const contracts = {
     registry: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e'
   },
   137: {
-    registry: '0x951dA3DD08acf888d701621d99dBEF00C3E7f67e'
+    registry: '0xac53bb0aD7DCEB44219B46A1B05E0373a9063eC3'
   }
 }
 
