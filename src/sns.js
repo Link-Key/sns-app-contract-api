@@ -126,14 +126,16 @@ export class SNS {
   async registry(name) {
     const signer = await getSigner()
     const SNS = this.SNS.connect(signer)
-    const account = await getAccount()
-    let flag = (!await SNS.isOverDeadline()) && (await SNS.getWhitelist(account))
-    if (flag) {
-      return await SNS.freeMint(nameRemoveSuffix(name))
-    } else {
-      const value = await this.getRegisteredPrice()
-      return await SNS.mint(nameRemoveSuffix(name), { value })
-    }
+    // const account = await getAccount()
+    // let flag = (!await SNS.isOverDeadline()) && (await SNS.getWhitelist(account))
+    // if (flag) {
+    //   return await SNS.freeMint(nameRemoveSuffix(name))
+    // } else {
+    //   const value = await this.getRegisteredPrice()
+    //   return await SNS.mint(nameRemoveSuffix(name), { value })
+    // }
+    const value = await this.getRegisteredPrice()
+    return await SNS.mint(nameRemoveSuffix(name), { value })
   }
 
   //freeMint
