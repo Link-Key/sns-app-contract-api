@@ -10,7 +10,7 @@ let requested = false
 let address
 
 function getDefaultProvider() {
-  legacyProvider = new Web3(getNetworkProviderUrl(137))
+  legacyProvider = new Web3(getNetworkProviderUrl(80001))
   return new ethers.getDefaultProvider('matic', 'any')
 }
 
@@ -167,6 +167,8 @@ export function getNetworkProviderUrl(id) {
       return `https://goerli.infura.io/v3/5a380f9dfbb44b2abf9f681d39ddc382`
     case '137':
       return `https://polygon-mainnet.infura.io/v3/5a380f9dfbb44b2abf9f681d39ddc382`
+    case '80001':
+      return `https://polygon-mumbai.g.alchemy.com/v2/lzpTmazJeflJIPmTouaSiDo4uYtKC1tw`
     default:
       return `https://polygon-mainnet.infura.io/v3/5a380f9dfbb44b2abf9f681d39ddc382`
   }

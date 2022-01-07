@@ -1,36 +1,5 @@
 [
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "key_",
-        "type": "address"
-      },
-      {
-        "internalType": "string",
-        "name": "name_",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "symbol_",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "freeMintQuantity_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "freeMintEndTime_",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
@@ -93,12 +62,6 @@
         "indexed": false,
         "internalType": "string",
         "name": "name_",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "tokenURI_",
         "type": "string"
       },
       {
@@ -246,25 +209,6 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "_owners",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
         "name": "tokenId_",
         "type": "uint256"
       },
@@ -330,14 +274,14 @@
         "type": "string[]"
       },
       {
-        "internalType": "string[]",
-        "name": "tokenURIs_",
-        "type": "string[]"
-      },
-      {
         "internalType": "address[]",
         "name": "tos_",
         "type": "address[]"
+      },
+      {
+        "internalType": "bool",
+        "name": "isKeyMint_",
+        "type": "bool"
       }
     ],
     "name": "batchManagerMint",
@@ -348,14 +292,20 @@
   {
     "inputs": [
       {
-        "internalType": "string",
-        "name": "name_",
-        "type": "string"
+        "internalType": "address",
+        "name": "addr_",
+        "type": "address"
       }
     ],
-    "name": "freeMint",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "name": "getAddressRegistered",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -372,19 +322,6 @@
         "internalType": "address",
         "name": "",
         "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getFreeMintQuantity",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -423,6 +360,19 @@
         "internalType": "string",
         "name": "",
         "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getPrice",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -474,12 +424,31 @@
         "type": "address"
       }
     ],
-    "name": "getSNSName",
+    "name": "getShortNameAllowedlist",
     "outputs": [
       {
-        "internalType": "string",
+        "internalType": "bool",
         "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "name_",
         "type": "string"
+      }
+    ],
+    "name": "getTokenIdOfName",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -487,7 +456,7 @@
   },
   {
     "inputs": [],
-    "name": "getTokenMintedExpManager",
+    "name": "getTokenMinted",
     "outputs": [
       {
         "internalType": "uint256",
@@ -502,19 +471,28 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "addr_",
+        "name": "key_",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "name_",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "symbol_",
+        "type": "string"
+      },
+      {
+        "internalType": "address payable",
+        "name": "feeTo_",
         "type": "address"
       }
     ],
-    "name": "getWhitelist",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -531,19 +509,6 @@
       }
     ],
     "name": "isApprovedForAll",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "isOverDeadline",
     "outputs": [
       {
         "internalType": "bool",
@@ -632,6 +597,19 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "addrs_",
+        "type": "address[]"
+      }
+    ],
+    "name": "removeShortNameAllowed",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "renounceOwnership",
     "outputs": [],
@@ -710,12 +688,56 @@
   {
     "inputs": [
       {
+        "internalType": "bool",
+        "name": "canManagerMint_",
+        "type": "bool"
+      }
+    ],
+    "name": "setCanManagerMint",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "defaultResolverAddress_",
         "type": "address"
       }
     ],
     "name": "setDefaultResolverAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "increasesNumber_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "increasesPrice_",
+        "type": "uint256"
+      }
+    ],
+    "name": "setIncreases",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bool",
+        "name": "isOnlySetOnce_",
+        "type": "bool"
+      }
+    ],
+    "name": "setIsOnlySetOnce",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -741,6 +763,37 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "short_Length_MAX_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "short_Length_MIN_",
+        "type": "uint256"
+      }
+    ],
+    "name": "setShortLength",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "addrs_",
+        "type": "address[]"
+      }
+    ],
+    "name": "setShortNameAllowed",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256[]",
         "name": "tokenIds_",
         "type": "uint256[]"
@@ -759,12 +812,12 @@
   {
     "inputs": [
       {
-        "internalType": "address[]",
-        "name": "addrs_",
-        "type": "address[]"
+        "internalType": "string",
+        "name": "name_",
+        "type": "string"
       }
     ],
-    "name": "setWhitelist",
+    "name": "shortNameMint",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -805,68 +858,6 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "index",
-        "type": "uint256"
-      }
-    ],
-    "name": "tokenByIndex",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "owner",
-        "type": "address"
-      }
-    ],
-    "name": "tokenOfOwner",
-    "outputs": [
-      {
-        "internalType": "uint256[]",
-        "name": "",
-        "type": "uint256[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "owner",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "index",
-        "type": "uint256"
-      }
-    ],
-    "name": "tokenOfOwnerByIndex",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
         "name": "tokenId",
         "type": "uint256"
       }
@@ -877,19 +868,6 @@
         "internalType": "string",
         "name": "",
         "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "totalSupply",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
       }
     ],
     "stateMutability": "view",

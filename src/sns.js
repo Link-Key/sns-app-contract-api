@@ -57,6 +57,9 @@ const contracts = {
   },
   137: {
     registry: '0xac53bb0aD7DCEB44219B46A1B05E0373a9063eC3'
+  },
+  80001:{
+    registry: '0x4F10405b504ef46c1c934e6917d2ba16361E242e'
   }
 }
 
@@ -83,70 +86,25 @@ export class SNS {
   }
 
   /* Main methods */
-
-  // async getOwner(name) {
-  //   const namehash = getNamehash(name)
-  //   const owner = await this.SNS.owner(namehash)
-  //   return owner
-  // }
-
-  /* non-constant functions */
-
-  // async setOwner(name, newOwner) {
-  //   const SNSWithoutSigner = this.SNS
-  //   const signer = await getSigner()
-  //   const SNS = SNSWithoutSigner.connect(signer)
-  //   const namehash = getNamehash(name)
-  //   return SNS.setOwner(namehash, newOwner)
-  // }
-
-  async isOverDeadline() {
-    const SNSWithoutSigner = this.SNS
-    const signer = await getSigner()
-    const SNS = SNSWithoutSigner.connect(signer)
-    return await this.SNS.isOverDeadline()
-  }
-
-  //Get the number of castings that the system has cast
-  async getWhitelist(address) {
-    return await this.SNS.getWhitelist(address)
-  }
-
   //Get the number of castings in the system
-  async getTokenMintedExpManager() {
-    return await this.SNS.getTokenMintedExpManager()
-  }
 
-  //Set the resolver address
-  async setDefaultResolverAddress(addr) {
-    return await this.SNS.setDefaultResolverAddress(addr)
-  }
 
   //registry
   async registry(name) {
     const signer = await getSigner()
     const SNS = this.SNS.connect(signer)
-    // const account = await getAccount()
-    // let flag = (!await SNS.isOverDeadline()) && (await SNS.getWhitelist(account))
-    // if (flag) {
-    //   return await SNS.freeMint(nameRemoveSuffix(name))
-    // } else {
-    //   const value = await this.getRegisteredPrice()
-    //   return await SNS.mint(nameRemoveSuffix(name), { value })
-    // }
-    const value = await this.getRegisteredPrice()
-    return await SNS.mint(nameRemoveSuffix(name), { value })
+    let isShortName = await this.getShortNameAllowedlist()
+    if(isShortName){
+      return await SNS.shortNameMint(nameRemoveSuffix(name))
+    }else{
+      const value = await this.getRegisteredPrice()
+      return await SNS.mint(nameRemoveSuffix(name), { value })
+    }
   }
 
-  //freeMint
-  async freeMint(name) {
-    return await this.SNS.freeMint(nameRemoveSuffix(name))
-  }
-
-  //Paid regist
-  async mint(name) {
-    const tx = await this.SNS.mint(nameRemoveSuffix(name));
-    return sendHelper(tx)
+  async getShortNameAllowedlist(){
+    const address = await getAccount()
+    return  await this.SNS.getShortNameAllowedlist(address)
   }
 
   // sns name transfer
@@ -156,9 +114,10 @@ export class SNS {
     return await SNS.transfer(address, name)
   }
 
+  // getSNSName
   //Get the registered SNSName by address
-  async getSNSName(address) {
-    return await this.SNS.getSNSName(address)
+  async getNameOfOwner(address) {
+    return await this.SNS.getNameOfOwner(address)
   }
 
   //Get the resolver address through SNSName
@@ -166,7 +125,7 @@ export class SNS {
     return await this.SNS.getResolverAddress(name)
   }
 
-  //
+  //Custom parser
   async setResolverInfo(name, address) {
     const signer = await getSigner()
     const SNS = this.SNS.connect(signer)
@@ -175,7 +134,7 @@ export class SNS {
 
   //Get resolverOwner address
   async getResolverOwner(name) {
-    return await this.SNS.getResolverOwner(name)
+    return await this.SNS.getResolverOwner(nameRemoveSuffix(name))
   }
 
   //Get recordExists
@@ -212,19 +171,9 @@ export class SNS {
     }
   }
 
-  async getFreeMintQuantity() {
-    return await this.SNS.getFreeMintQuantity()
-  }
   //
   async getRegisteredPrice() {
-    const count = await this.getTokenMintedExpManager()
-    const freeMintQuantity = await this.getFreeMintQuantity()
-    let price
-    if (count.toNumber() < freeMintQuantity.toNumber()) {
-      price = Web3.utils.toWei('1', 'ether')
-    } else {
-      price = Web3.utils.toWei('10', 'ether')
-    }
+    const price = await this.SNS.getPrice()
     return price
   }
   // Events

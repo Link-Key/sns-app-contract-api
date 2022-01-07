@@ -43,6 +43,9 @@ const contracts = {
   },
   137: {
     registry: '0x7c9d95E3DeDC844653a03EAb9F83Dd0712A7D4d7'
+  },
+  80001:{
+    registry: '0xe367Ef67b830175EA5066ec96CF199B203943396'
   }
 }
 
@@ -168,9 +171,9 @@ export class SNSResolver {
     return await this.SNSResolver.getAllProperties(name)
   }
 
-  //exp: 0-1-2-3-4-5-6-7-8-9-10-11-12-13-14
+  //exp: 0+1-2-3-4-5-6-7-8-9-10-11-12-13-14
   //0:ethAddress ~ 14:orgTelegram
-  //use "-" gap
+  //use "+" gap
   async setAllProperties(name, recordsStr) {
     return await this.SNSResolver.setAllProperties(
       nameRemoveSuffix(name),
