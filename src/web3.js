@@ -10,7 +10,7 @@ let requested = false
 let address
 
 function getDefaultProvider() {
-  legacyProvider = new Web3(getNetworkProviderUrl(80001))
+  legacyProvider = new Web3(getNetworkProviderUrl(137))
   return new ethers.getDefaultProvider('matic', 'any')
 }
 
