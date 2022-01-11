@@ -166,7 +166,8 @@ export function getNetworkProviderUrl(id) {
     case '5':
       return `https://goerli.infura.io/v3/5a380f9dfbb44b2abf9f681d39ddc382`
     case '137':
-      return `https://polygon-mainnet.infura.io/v3/5a380f9dfbb44b2abf9f681d39ddc382`
+      // return `https://polygon-mainnet.infura.io/v3/5a380f9dfbb44b2abf9f681d39ddc382`
+      return `https://polygon-mainnet.g.alchemy.com/v2/w5RH-__tiDbqWERxrvBD4-UO8ifWm-2h`
     case '80001':
       return `https://polygon-mumbai.g.alchemy.com/v2/lzpTmazJeflJIPmTouaSiDo4uYtKC1tw`
     default:
