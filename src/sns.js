@@ -134,12 +134,12 @@ export class SNS {
 
   //Get resolverOwner address
   async getResolverOwner(name) {
-    return await this.SNS.getResolverOwner(nameRemoveSuffix(name))
+    return await this.SNS.getResolverOwner(name)
   }
 
   //Get recordExists
   async recordExists(name) {
-    return await this.SNS.recordExists(nameRemoveSuffix(name))
+    return await this.SNS.recordExists(name)
   }
 
   async getDomainDetails(name) {
