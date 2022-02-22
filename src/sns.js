@@ -137,6 +137,11 @@ export class SNS {
     return await this.SNS.getResolverOwner(name)
   }
 
+  async getTokenIdOfName(name) {
+    return await this.SNS.getTokenIdOfName(name)
+  }
+
+
   //Get recordExists
   async recordExists(name) {
     return await this.SNS.recordExists(name)
