@@ -1,5 +1,8 @@
 import has from 'lodash/has'
 import { getWithdrawContract } from './contracts'
+import {
+    getSigner
+} from './web3'
 
 const contracts = {
     1: {
@@ -53,7 +56,10 @@ export class SNSWithdraw {
 
     // withdraw
     async withdraw() {
-        return await this.SNSWithdraw.withdraw();
+        const singner = await getSigner();
+        const withdrawInstance = this.SNSWithdraw.connect(singner);
+        const feeValue = await this.getFeeValue()
+        return await withdrawInstance.withdraw({ feeValue });
     }
 
 }
