@@ -10,6 +10,7 @@ import { setupRegistrar } from './registrar'
 export { utils, ethers } from 'ethers'
 import { SNS } from './sns.js'
 import { SNSResolver } from './sns.resolver'
+import { SNSWithdraw } from './withdraw.js'
 
 export async function setupENS({
   customProvider,
@@ -60,11 +61,14 @@ export async function setupSNS({
   // Get the address of the parser
   // const name = await sns.getSNSName(getAccount())
   const snsResolver = new SNSResolver({ networkId, provider })
+  // get widthdraw instance
+  const snsWithdraw = new SNSWithdraw({ provider, networkId, registryAddress: ensAddress })
 
   const network = await getNetwork()
 
   return {
     sns,
+    snsWithdraw,
     snsResolver,
     provider: customProvider,
     network,
@@ -97,6 +101,36 @@ export async function setupSNSResolver({
     return new SNSResolver({ networkId, resolverAddress, provider })
   }
   return {}
+}
+
+// withdraw coins Instance
+export async function callWithdraw({
+  customProvider,
+  ensAddress,
+  reloadOnAccountsChange,
+  enforceReadOnly,
+  enforceReload,
+  infura
+} = {}) {
+  const { provider } = await setupWeb3({
+    customProvider,
+    reloadOnAccountsChange,
+    enforceReadOnly,
+    enforceReload,
+    infura
+  })
+  const networkId = await getNetworkId()
+  // get sns and resolver instance
+  const snsWithdraw = new SNSWithdraw({ provider, networkId, registryAddress: ensAddress })
+
+  const network = await getNetwork()
+
+  return {
+    snsWithdraw,
+    provider: customProvider,
+    network,
+    providerObject: provider
+  }
 }
 
 export * from './ens'
