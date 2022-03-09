@@ -58,8 +58,9 @@ export class SNSWithdraw {
     async withdraw() {
         const singner = await getSigner();
         const withdrawInstance = this.SNSWithdraw.connect(singner);
-        const feeValue = await this.getFeeValue()
-        return await withdrawInstance.withdraw({ feeValue });
+        // get fee value 
+        const value = await this.getFeeValue()
+        return await withdrawInstance.withdraw({ value });
     }
 
 }
