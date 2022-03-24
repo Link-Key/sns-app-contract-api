@@ -1,46 +1,19 @@
-import has from 'lodash/has'
 import { getIERC20Contract } from './contracts'
-import { SNS } from './sns'
 import {
     getSigner
 } from './web3'
 
-const contracts = {
-    1: {
-        registry: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e'
-    },
-    3: {
-        registry: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e'
-    },
-    4: {
-        registry: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e'
-    },
-    5: {
-        registry: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e'
-    },
-    137: {
-        registry: '0x797301747e21C10356547e27FA8D358e5Bd71bbC'
-    },
-    80001: {
-        registry: '0xAeE4016959945f2461ED2Dc8B71BFE25060EDbdA'
-    }
-}
-
 export class SNSIERC20 {
 
-    constructor({ networkId, registryAddress, provider }) {
-        this.contracts = contracts
-        const hasRegistry = has(this.contracts[networkId], 'registry')
+    constructor({ registryAddress }) {
 
-        if (!hasRegistry && !registryAddress) {
-            throw new Error(`Unsupported network ${networkId}`)
-        } else if (this.contracts[networkId] && !registryAddress) {
-            registryAddress = contracts[networkId].registry
+        if (!registryAddress) {
+            throw new Error(`Unsupported network`)
         }
 
         this.registryAddress = registryAddress
 
-        const SNSIERC20Contract = getIERC20Contract({ address: registryAddress, provider })
+        const SNSIERC20Contract = getIERC20Contract({ address: registryAddress })
         this.SNSIERC20 = SNSIERC20Contract
     }
 
@@ -53,7 +26,9 @@ export class SNSIERC20 {
 
     // Get the SNS Approval
     async approve(address, amount) {
-        return await this.SNSIERC20.approve(address, amount)
+        const singner = await getSigner();
+        const IERC20Instance = this.SNSIERC20.connect(singner);
+        return await IERC20Instance.approve(address, amount)
     }
 
     // 
