@@ -11,6 +11,7 @@ export { utils, ethers } from 'ethers'
 import { SNS } from './sns.js'
 import { SNSResolver } from './sns.resolver'
 import { SNSWithdraw } from './withdraw.js'
+import { SNSIERC20 } from './IERC20'
 
 export async function setupENS({
   customProvider,
@@ -63,6 +64,8 @@ export async function setupSNS({
   const snsResolver = new SNSResolver({ networkId, provider })
   // get widthdraw instance
   const snsWithdraw = new SNSWithdraw({ provider, networkId, registryAddress: ensAddress })
+  // get IERC20 instance
+  const snsIERC20 = new SNSIERC20({ provider, networkId, registryAddress: ensAddress })
 
   const network = await getNetwork()
 
@@ -70,6 +73,7 @@ export async function setupSNS({
     sns,
     snsWithdraw,
     snsResolver,
+    snsIERC20,
     provider: customProvider,
     network,
     providerObject: provider
@@ -127,6 +131,36 @@ export async function callWithdraw({
 
   return {
     snsWithdraw,
+    provider: customProvider,
+    network,
+    providerObject: provider
+  }
+}
+
+// ERC20 Instance
+export async function setupIERC20({
+  customProvider,
+  ensAddress,
+  reloadOnAccountsChange,
+  enforceReadOnly,
+  enforceReload,
+  infura
+} = {}) {
+  const { provider } = await setupWeb3({
+    customProvider,
+    reloadOnAccountsChange,
+    enforceReadOnly,
+    enforceReload,
+    infura
+  })
+  const networkId = await getNetworkId()
+  // get sns and resolver instance
+  const snsIERC20 = new SNSIERC20({ provider, networkId, registryAddress: ensAddress })
+
+  const network = await getNetwork()
+
+  return {
+    snsIERC20,
     provider: customProvider,
     network,
     providerObject: provider

@@ -58,7 +58,7 @@ const contracts = {
   137: {
     registry: '0x19AD2b1F012349645C3173EA63F98948A2b43d27'
   },
-  80001:{
+  80001: {
     registry: '0x8d8E4026702e5fe16775393ba327007e638043fe'
   }
 }
@@ -94,17 +94,17 @@ export class SNS {
     const signer = await getSigner()
     const SNS = this.SNS.connect(signer)
     let isShortName = await this.getShortNameAllowedlist()
-    if(isShortName){
+    if (isShortName) {
       return await SNS.shortNameMint(nameRemoveSuffix(name))
-    }else{
+    } else {
       const value = await this.getRegisteredPrice()
       return await SNS.mint(nameRemoveSuffix(name), { value })
     }
   }
 
-  async getShortNameAllowedlist(){
+  async getShortNameAllowedlist() {
     const address = await getAccount()
-    return  await this.SNS.getShortNameAllowedlist(address)
+    return await this.SNS.getShortNameAllowedlist(address)
   }
 
   // sns name transfer
@@ -176,11 +176,23 @@ export class SNS {
     }
   }
 
-  //
   async getRegisteredPrice() {
     const price = await this.SNS.getPrice()
     return price
   }
+
+  // get key coins address
+  async getKeyCoinsAddress() {
+    const address = await this.SNS.getCoinsAddress(1)
+    return address
+  }
+
+  // get key coins price
+  async getKeyCoinsPrice() {
+    const price = await this.SNS.getCoinsPrice(1)
+    return price
+  }
+
   // Events
 
   /**

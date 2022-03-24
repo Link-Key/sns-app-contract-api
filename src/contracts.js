@@ -18,6 +18,7 @@ import { abi as deedContract } from '@ensdomains/contracts/abis/ens/Deed'
 import snsContract from './sns.json'
 import snsResolverContract from './sns.resolver.json'
 import withdrawContract from './withdraw.json'
+import IERC20Contract from './IERC20.json'
 
 function getReverseRegistrarContract({ address, provider }) {
   return new Contract(address, reverseRegistrarContract, provider)
@@ -77,6 +78,10 @@ function getBulkRenewalContract({ address, provider }) {
 
 function getWithdrawContract({ address, provider }) {
   return new Contract(address, withdrawContract, provider)
+}
+
+function getIERC20Contract({ address, provider }) {
+  return new Contract(address, IERC20Contract, provider)
 }
 
 export {

@@ -1,5 +1,6 @@
 import has from 'lodash/has'
-import { getWithdrawContract } from './contracts'
+import { getIERC20Contract } from './contracts'
+import { SNS } from './sns'
 import {
     getSigner
 } from './web3'
@@ -21,12 +22,12 @@ const contracts = {
         registry: '0x797301747e21C10356547e27FA8D358e5Bd71bbC'
     },
     80001: {
-        registry: '0x4710b11a1a636b1b6b7bbb8c08b2758c1993aba2'
+        registry: '0xAeE4016959945f2461ED2Dc8B71BFE25060EDbdA'
     }
 }
 
-export class SNSWithdraw {
-    
+export class SNSIERC20 {
+
     constructor({ networkId, registryAddress, provider }) {
         this.contracts = contracts
         const hasRegistry = has(this.contracts[networkId], 'registry')
@@ -39,29 +40,26 @@ export class SNSWithdraw {
 
         this.registryAddress = registryAddress
 
-        const SNSWithdrawContract = getWithdrawContract({ address: registryAddress, provider })
-        this.SNSWithdraw = SNSWithdrawContract
+        const SNSIERC20Contract = getIERC20Contract({ address: registryAddress, provider })
+        this.SNSIERC20 = SNSIERC20Contract
     }
 
     /* Get the raw Ethers contract object */
-    getSNSWithdrawContractInstance() {
-        return this.SNSWithdraw
+    getSNSIERC20ContractInstance() {
+        return this.SNSIERC20
     }
 
     /* Main methods */
 
-    // get KEYs fee value
-    async getFeeValue() {
-        return await this.SNSWithdraw.queryFeeValue()
+    // Get the SNS Approval
+    async approve(address, amount) {
+        return await this.SNSIERC20.approve(address, amount)
     }
 
-    // withdraw
-    async withdraw() {
-        const singner = await getSigner();
-        const withdrawInstance = this.SNSWithdraw.connect(singner);
-        // get fee value 
-        const value = await this.getFeeValue()
-        return await withdrawInstance.withdraw({ value });
+    // 
+    async allowance(owner, spender) {
+        return await this.SNSIERC20.allowance(owner, spender)
     }
+
 
 }

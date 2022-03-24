@@ -335,6 +335,44 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "coinsType_",
+        "type": "uint256"
+      }
+    ],
+    "name": "getCoinsAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "coinsType_",
+        "type": "uint256"
+      }
+    ],
+    "name": "getCoinsPrice",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "addr_",
         "type": "address"
@@ -538,6 +576,30 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "name_",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_coinsType",
+        "type": "uint256"
+      }
+    ],
+    "name": "mintByMoreCoins",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "name",
     "outputs": [
@@ -609,7 +671,33 @@
         "type": "address[]"
       }
     ],
+    "name": "removeAssetsManagerList",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "addrs_",
+        "type": "address[]"
+      }
+    ],
     "name": "removeShortNameAllowed",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "addrs_",
+        "type": "address[]"
+      }
+    ],
+    "name": "removeUserTokenManager",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -693,6 +781,19 @@
   {
     "inputs": [
       {
+        "internalType": "address[]",
+        "name": "addrs_",
+        "type": "address[]"
+      }
+    ],
+    "name": "setAssetsManagerList",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bool",
         "name": "canManagerMint_",
         "type": "bool"
@@ -706,12 +807,61 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "newCoinsType_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "newCoinsAddress_",
+        "type": "address"
+      }
+    ],
+    "name": "setCoins",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "newCoinsType_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "newCoinsPrice_",
+        "type": "uint256"
+      }
+    ],
+    "name": "setCoinsPrice",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "defaultResolverAddress_",
         "type": "address"
       }
     ],
     "name": "setDefaultResolverAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newFeeTo_",
+        "type": "address"
+      }
+    ],
+    "name": "setFeeTo",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -810,6 +960,19 @@
       }
     ],
     "name": "setTokenURI",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "addrs_",
+        "type": "address[]"
+      }
+    ],
+    "name": "setUserTokenManager",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
