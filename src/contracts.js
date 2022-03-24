@@ -99,5 +99,6 @@ export {
   getBulkRenewalContract,
   getSNSContract,
   getSNSResolverContract,
-  getWithdrawContract
+  getWithdrawContract,
+  getIERC20Contract
 }
