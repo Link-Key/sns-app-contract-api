@@ -5,7 +5,7 @@ import {
 
 export class SNSIERC20 {
 
-    constructor({ registryAddress }) {
+    constructor({ registryAddress, provider }) {
 
         if (!registryAddress) {
             throw new Error(`Unsupported network`)
@@ -13,7 +13,7 @@ export class SNSIERC20 {
 
         this.registryAddress = registryAddress
 
-        const SNSIERC20Contract = getIERC20Contract({ address: registryAddress })
+        const SNSIERC20Contract = getIERC20Contract({ address: registryAddress, provider })
         this.SNSIERC20 = SNSIERC20Contract
     }
 

@@ -136,10 +136,10 @@ export async function callWithdraw({
 
 // ERC20 Instance
 export async function setupIERC20({
-  snsAddress,
+  snsAddress, provider
 } = {}) {
   // get IERC20 instance
-  const snsIERC20 = new SNSIERC20({ registryAddress: snsAddress })
+  const snsIERC20 = new SNSIERC20({ registryAddress: snsAddress, provider })
   return snsIERC20
 }
 

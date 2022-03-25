@@ -1,6 +1,6 @@
 {
   "name": "sns-app-contract-api",
-  "version": "1.1.7-t-2",
+  "version": "1.1.7-t-3",
   "description": "",
   "main": "src/index.js",
   "files": [

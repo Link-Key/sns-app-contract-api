@@ -193,6 +193,13 @@ export class SNS {
     return price
   }
 
+  // mint key coins 
+  async mintByMoreCoins(name, coinsType) {
+    const signer = await getSigner()
+    const SNS = this.SNS.connect(signer)
+    return await SNS.mintByMoreCoins(name, coinsType)
+  }
+
   // Events
 
   /**
