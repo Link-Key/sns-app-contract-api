@@ -26,6 +26,7 @@ const contracts = {
 }
 
 export class SNSWithdraw {
+    
     constructor({ networkId, registryAddress, provider }) {
         this.contracts = contracts
         const hasRegistry = has(this.contracts[networkId], 'registry')

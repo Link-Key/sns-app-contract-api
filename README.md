@@ -1,14 +1,30 @@
 # Reusable functions and components for the SNS apps
 
 Most functions in this library are async functions and therefore return promises which can be awaited or chained with `.then`.
-
 ## Contracts
+
 - ### [Registry](#Registry)
 - ### [Resolvers](#Resolvers)
 - ### [Withdraw](#Withdraw)
 
+
+## Installation
+
+```bash
+# Install the npm package in your project
+npm install sns-app-contract-api
+```
+or
+``` 
+ yarn add sns-app-contract-api
+```
+
+```js
+// Import 'sns-app-contract-api' in your project
+import { setupSNS } from 'sns-app-contract-api'
+```
+
 ## Start
-***
 
 - ### [setup](#setup)
 
@@ -49,7 +65,6 @@ window.addEventListener('load', async () => {
 ```
 
 ## <span id='Registry'> Registry API</span>
-***
 
 - ### [registry()](#async-function-Registry-registry-name)
 - ### [transfer()](#async-function-Registry-transfer-addressAndName)
@@ -250,7 +265,6 @@ const price = await sns.getRegisteredPrice()
 ```
 
 ## <span id='Resolvers'> Resolvers API</span>
-***
 
 ### [getAllProperties()](#async-function-getAllProperties-name)
 ### [setAllProperties()](#async-function-setAllProperties-name)
@@ -294,7 +308,6 @@ const transactionTx = await snsResolver.setAllProperties(name, recordStr)
 ```
 
 ## <span id='Withdraw'> Withdraw API</span>
-***
 
 ### [getFeeValue()](#async-function-getFeeValue)
 ### [withdraw()](#async-function-withdraw)
@@ -321,7 +334,7 @@ const fee = snsWithdraw.getFeeValue()
 const transcationTx = await snsWithdraw.withdraw()
 ```
 ## <span id='transaction-response-object'>Transaction Response</span>
-***
+
 The transaction response object gets returned by the promise of all state modifying functions of the library. The most important properties is the `wait `function which can be called by the initial response, before the transaction has been mined. You can await this promise and it will give you the transaction receipt. The transaction receipt, is the same as the transaction response object, except is has a `blockHash`,`blockNumber` and `timestamp` of the block the transaction has been included in.
 
 ```js

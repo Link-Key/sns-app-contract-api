@@ -11,6 +11,7 @@ export { utils, ethers } from 'ethers'
 import { SNS } from './sns.js'
 import { SNSResolver } from './sns.resolver'
 import { SNSWithdraw } from './withdraw.js'
+import { SNSIERC20 } from './IERC20'
 
 export async function setupENS({
   customProvider,
@@ -131,6 +132,15 @@ export async function callWithdraw({
     network,
     providerObject: provider
   }
+}
+
+// ERC20 Instance
+export async function setupIERC20({
+  snsAddress, provider
+} = {}) {
+  // get IERC20 instance
+  const snsIERC20 = new SNSIERC20({ registryAddress: snsAddress, provider })
+  return snsIERC20
 }
 
 export * from './ens'
