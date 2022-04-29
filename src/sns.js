@@ -178,19 +178,19 @@ export class SNS {
 
   async getRegisteredPrice() {
     const price = await this.SNS.getPrice()
-    return price
+    return price.maticPrice
   }
 
   // get key coins address
   async getKeyCoinsAddress() {
-    const address = await this.SNS.getCoinsAddress(1)
-    return address
+    const coinsInfo = await this.SNS.getCoinsInfo(1)
+    return coinsInfo[0]
   }
 
   // get key coins price
   async getKeyCoinsPrice() {
-    const price = await this.SNS.getCoinsPrice(1)
-    return price
+    const price = await this.SNS.getPrice()
+    return price.keyPrice
   }
 
   // mint key coins 
