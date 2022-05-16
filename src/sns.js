@@ -187,10 +187,21 @@ export class SNS {
     return coinsInfo[0]
   }
 
+  async getLowbCoinsAddress() {
+    const coinsInfo = await this.SNS.getCoinsInfo(2)
+    console.log(coinsInfo)
+    return coinsInfo[0]
+  }
+
   // get key coins price
   async getKeyCoinsPrice() {
     const price = await this.SNS.getPrice()
     return price.keyPrice
+  }
+
+  async getLowbCoinsPrice() {
+    const price = await this.SNS.getPrice()
+    return price.lowbPrice
   }
 
   // mint key coins 

@@ -417,6 +417,11 @@
         "internalType": "uint256",
         "name": "keyPrice",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "lowbPrice",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
