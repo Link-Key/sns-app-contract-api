@@ -232,19 +232,6 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "num",
-        "type": "uint256"
-      }
-    ],
-    "name": "addTokenMinted",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "address",
         "name": "to",
         "type": "address"
@@ -274,53 +261,6 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string[]",
-        "name": "names_",
-        "type": "string[]"
-      },
-      {
-        "internalType": "address[]",
-        "name": "tos_",
-        "type": "address[]"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "tokenIds_",
-        "type": "uint256[]"
-      },
-      {
-        "internalType": "bool",
-        "name": "isKeyMint_",
-        "type": "bool"
-      }
-    ],
-    "name": "batchManagerMint",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "addr_",
-        "type": "address"
-      }
-    ],
-    "name": "getAddressRegistered",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -385,14 +325,66 @@
         "internalType": "address",
         "name": "addr_",
         "type": "address"
-      }
-    ],
-    "name": "getNameOfOwner",
-    "outputs": [
+      },
       {
         "internalType": "string",
-        "name": "",
+        "name": "name_",
         "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId_",
+        "type": "uint256"
+      }
+    ],
+    "name": "getInfo",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "bool",
+            "name": "shortNameAllowed",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "addressRegistered",
+            "type": "bool"
+          },
+          {
+            "internalType": "string",
+            "name": "nameOfOwner",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "recordExists",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tokenIdOfName",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "resolverOwner",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "resolverAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "nameOfTokenId",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct SNSV2_3.Response",
+        "name": "addressResp",
+        "type": "tuple"
       }
     ],
     "stateMutability": "view",
@@ -401,24 +393,11 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "tokenId_",
-        "type": "uint256"
+        "internalType": "address",
+        "name": "inviter_",
+        "type": "address"
       }
     ],
-    "name": "getNameOfTokenId",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "getPrice",
     "outputs": [
       {
@@ -448,44 +427,6 @@
   {
     "inputs": [
       {
-        "internalType": "string",
-        "name": "name_",
-        "type": "string"
-      }
-    ],
-    "name": "getResolverAddress",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "name_",
-        "type": "string"
-      }
-    ],
-    "name": "getResolverOwner",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "address",
         "name": "addr_",
         "type": "address"
@@ -497,25 +438,6 @@
         "internalType": "bool",
         "name": "",
         "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "name_",
-        "type": "string"
-      }
-    ],
-    "name": "getTokenIdOfName",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -566,6 +488,19 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "inviteAddress_",
+        "type": "address"
+      }
+    ],
+    "name": "initializeInvite",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "owner",
         "type": "address"
       },
@@ -592,6 +527,11 @@
         "internalType": "string",
         "name": "name_",
         "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "inviter_",
+        "type": "address"
       }
     ],
     "name": "mint",
@@ -610,6 +550,11 @@
         "internalType": "uint256",
         "name": "coinsType_",
         "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "inviter_",
+        "type": "address"
       }
     ],
     "name": "mintByMoreCoins",
@@ -660,38 +605,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "name_",
-        "type": "string"
-      }
-    ],
-    "name": "recordExists",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address[]",
-        "name": "addrs_",
-        "type": "address[]"
-      }
-    ],
-    "name": "removeShortNameAllowed",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -933,6 +846,11 @@
         "internalType": "address[]",
         "name": "addrs_",
         "type": "address[]"
+      },
+      {
+        "internalType": "bool",
+        "name": "allowed_",
+        "type": "bool"
       }
     ],
     "name": "setShortNameAllowed",

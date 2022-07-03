@@ -90,7 +90,7 @@ export class SNS {
 
 
   //registry
-  async registry(name) {
+  async registry(name,invite) {
     const signer = await getSigner()
     const SNS = this.SNS.connect(signer)
     let isShortName = await this.getShortNameAllowedlist()
@@ -98,13 +98,17 @@ export class SNS {
       return await SNS.shortNameMint(nameRemoveSuffix(name))
     } else {
       const value = await this.getRegisteredPrice()
-      return await SNS.mint(nameRemoveSuffix(name), { value })
+      return await SNS.mint([nameRemoveSuffix(name),invite], { value })
     }
+  }
+
+  async getInfo(addr_,name_,tokenId_){
+    return await this.SNS.getInfo(addr_,name_,tokenId_)
   }
 
   async getShortNameAllowedlist() {
     const address = await getAccount()
-    return await this.SNS.getShortNameAllowedlist(address)
+    return await getInfo(address,"",0).addressResp.shortNameAllowed;
   }
 
   // sns name transfer
@@ -117,12 +121,12 @@ export class SNS {
   // getSNSName
   //Get the registered SNSName by address
   async getNameOfOwner(address) {
-    return await this.SNS.getNameOfOwner(address)
+    return await getInfo(address,"",0).addressResp.nameOfOwner;
   }
 
   //Get the resolver address through SNSName
   async getResolverAddress(name) {
-    return await this.SNS.getResolverAddress(name)
+    return await getInfo(emptyAddress,name,0).addressResp.resolverAddress;
   }
 
   //Custom parser
@@ -134,17 +138,16 @@ export class SNS {
 
   //Get resolverOwner address
   async getResolverOwner(name) {
-    return await this.SNS.getResolverOwner(name)
+    return await getInfo(emptyAddress,name,0).addressResp.resolverOwner;
   }
 
   async getTokenIdOfName(name) {
-    return await this.SNS.getTokenIdOfName(name)
+    return await getInfo(emptyAddress,name,0).addressResp.tokenIdOfName;
   }
-
 
   //Get recordExists
   async recordExists(name) {
-    return await this.SNS.recordExists(name)
+    return await getInfo(emptyAddress,name,0).addressResp.recordExists;
   }
 
   async getDomainDetails(name) {
@@ -176,9 +179,32 @@ export class SNS {
     }
   }
 
-  async getRegisteredPrice() {
-    const price = await this.SNS.getPrice()
+  async getRegisteredPrice(invite) {
+    const price = await this.SNS.getPrice(invite)
     return price.maticPrice
+  }
+
+  async getOtherCoin(type,invite){
+    const coin = await this.SNS.getCoinsInfo(type);
+    const price = await this.SNS.getPrice(invite)
+    let coinPirce;
+    switch (type) {
+      case 1:
+        coinPirce = price.keyPrice
+        break;
+      case 2:
+        coinPirce = price.lowbPrice
+        break;
+      case 3:
+        coinPirce = price.usdcPrice
+        break;
+      default:
+        break;
+    }
+    return {
+      address:coin[0],
+      price:coinPirce
+    }
   }
 
   // get key coins address

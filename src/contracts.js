@@ -19,6 +19,7 @@ import snsContract from './sns.json'
 import snsResolverContract from './sns.resolver.json'
 import withdrawContract from './withdraw.json'
 import IERC20Contract from './IERC20.json'
+import inviteContract from './invite.json'
 
 function getReverseRegistrarContract({ address, provider }) {
   return new Contract(address, reverseRegistrarContract, provider)
@@ -84,6 +85,10 @@ function getIERC20Contract({ address, provider }) {
   return new Contract(address, IERC20Contract, provider)
 }
 
+function getInviteContract({ address, provider }) {
+  return new Contract(address, inviteContract, provider)
+}
+
 export {
   getTestRegistrarContract,
   getReverseRegistrarContract,
@@ -100,5 +105,6 @@ export {
   getSNSContract,
   getSNSResolverContract,
   getWithdrawContract,
-  getIERC20Contract
+  getIERC20Contract,
+  getInviteContract
 }
