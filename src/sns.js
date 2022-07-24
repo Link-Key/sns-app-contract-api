@@ -138,7 +138,8 @@ export class SNS {
 
   //Get the resolver address through SNSName
   async getResolverAddress(name) {
-    return await this.getInfo(emptyAddress,name,0)[4];
+    const info = await this.getInfo(emptyAddress,name,0)
+    return info[4];
   }
 
   //Custom parser
@@ -150,16 +151,19 @@ export class SNS {
 
   //Get resolverOwner address
   async getResolverOwner(name) {
-    return await this.getInfo(emptyAddress,name,0)[5];
+    const info = await this.getInfo(emptyAddress,name,0)
+    return info[5];
   }
 
   async getTokenIdOfName(name) {
-    return await this.getInfo(emptyAddress,name,0)[7];
+    const info = await this.getInfo(emptyAddress,name,0)
+    return info[7];
   }
 
   //Get recordExists
   async recordExists(name) {
-    return await this.getInfo(emptyAddress,name,0)[3];
+    const info = await this.getInfo(emptyAddress,name,0)
+    return info[3];
   }
 
   async getDomainDetails(name) {
@@ -167,8 +171,8 @@ export class SNS {
     const signer = await getSigner()
     const SNS = this.SNS.connect(signer)
     const [owner, resolver] = await Promise.all([
-      SNS.getResolverOwner(name),
-      SNS.getResolverAddress(name)
+      this.getResolverOwner(name),
+      this.getResolverAddress(name)
     ])
     const node = {
       name,
@@ -196,7 +200,7 @@ export class SNS {
     return price.maticPrice
   }
 
-  async getOtherCoin(type,invite){
+  async getOtherCoinPrice(type,invite){
     const coin = await this.SNS.getCoinsInfo(type);
     const price = await this.SNS.getPrice(invite)
     let coinPirce;
@@ -238,26 +242,26 @@ export class SNS {
   }
 
   // get key coins price
-  async getKeyCoinsPrice() {
-    const price = await this.SNS.getPrice()
+  async getKeyCoinsPrice(invite) {
+    const price = await this.SNS.getPrice(invite)
     return price.keyPrice
   }
 
-  async getLowbCoinsPrice() {
-    const price = await this.SNS.getPrice()
+  async getLowbCoinsPrice(invite) {
+    const price = await this.SNS.getPrice(invite)
     return price.lowbPrice
   }
 
-  async getUsdcCoinsPrice() {
-    const price = await this.SNS.getPrice()
+  async getUsdcCoinsPrice(invite) {
+    const price = await this.SNS.getPrice(invite)
     return price.usdcPrice
   }
 
   // mint key coins 
-  async mintByMoreCoins(name, coinsType) {
+  async mintByMoreCoins(name, coinsType,invite) {
     const signer = await getSigner()
     const SNS = this.SNS.connect(signer)
-    return await SNS.mintByMoreCoins(name, coinsType)
+    return await SNS.mintByMoreCoins(name, coinsType,invite)
   }
 
   // Events
