@@ -119,7 +119,7 @@ export class SNS {
   async getShortNameAllowedlist() {
     const address = await getAccount()
     const info = await this.getInfo(address,"",0)
-    return info[6]
+    return info.shortNameAllowed
   }
 
   // sns name transfer
@@ -133,13 +133,13 @@ export class SNS {
   //Get the registered SNSName by address
   async getNameOfOwner(address) {
     const info = await this.getInfo(address,"",0)
-    return info[2]
+    return info.nameOfOwner
   }
 
   //Get the resolver address through SNSName
   async getResolverAddress(name) {
     const info = await this.getInfo(emptyAddress,name,0)
-    return info[4];
+    return info.resolverAddress;
   }
 
   //Custom parser
@@ -152,18 +152,18 @@ export class SNS {
   //Get resolverOwner address
   async getResolverOwner(name) {
     const info = await this.getInfo(emptyAddress,name,0)
-    return info[5];
+    return info.resolverOwner;
   }
 
   async getTokenIdOfName(name) {
     const info = await this.getInfo(emptyAddress,name,0)
-    return info[7];
+    return info.tokenIdOfName;
   }
 
   //Get recordExists
   async recordExists(name) {
     const info = await this.getInfo(emptyAddress,name,0)
-    return info[3];
+    return info.recordExists;
   }
 
   async getDomainDetails(name) {
@@ -264,7 +264,7 @@ export class SNS {
   async mintByMoreCoins(name, coinsType,invite) {
     const signer = await getSigner()
     const SNS = this.SNS.connect(signer)
-    if(type!=1){
+    if(coinsType!=1){
       invite = emptyAddress
     }
     return await SNS.mintByMoreCoins(name, coinsType,invite)
