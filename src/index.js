@@ -12,6 +12,7 @@ import { SNS } from './sns.js'
 import { SNSResolver } from './sns.resolver'
 import { SNSWithdraw } from './withdraw.js'
 import { SNSIERC20 } from './IERC20'
+import {Invite} from "./invite";
 
 export async function setupENS({
   customProvider,
@@ -133,6 +134,37 @@ export async function callWithdraw({
     providerObject: provider
   }
 }
+
+// withdraw coins Instance
+export async function setupInvite({
+   customProvider,
+   ensAddress,
+   reloadOnAccountsChange,
+   enforceReadOnly,
+   enforceReload,
+   infura
+ } = {}) {
+  const { provider } = await setupWeb3({
+    customProvider,
+    reloadOnAccountsChange,
+    enforceReadOnly,
+    enforceReload,
+    infura
+  })
+  const networkId = await getNetworkId()
+  // get sns and resolver instance
+  const invite = new Invite({ provider, networkId, registryAddress: ensAddress })
+
+  const network = await getNetwork()
+
+  return {
+    invite,
+    provider: customProvider,
+    network,
+    providerObject: provider
+  }
+}
+
 
 // ERC20 Instance
 export async function setupIERC20({

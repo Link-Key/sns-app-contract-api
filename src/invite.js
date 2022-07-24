@@ -31,7 +31,7 @@ const contracts = {
     registry: '0x19AD2b1F012349645C3173EA63F98948A2b43d27'
   },
   80001: {
-    registry: '0x9eB9C38c37860FF89830c7442721e1cC4F69ea7B'
+    registry: '0xC4FD81B29BD4EE39E232622867D4864ad503aC4a'
   }
 }
 
@@ -77,8 +77,9 @@ export class Invite {
     return await this.Invite.inviteDiscountRate()
   }
 
-
-
+  async getInviteCount(){
+    return await this.Invite.getInviteCount()
+  }
 
   // Events
   async getInviterEvent(event, { topics, fromBlock }) {
