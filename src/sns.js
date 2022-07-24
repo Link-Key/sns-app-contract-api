@@ -195,13 +195,16 @@ export class SNS {
     }
   }
 
-  async getRegisteredPrice(invite) {
-    const price = await this.SNS.getPrice(invite)
+  async getRegisteredPrice() {
+    const price = await this.SNS.getPrice(emptyAddress)
     return price.maticPrice
   }
 
   async getOtherCoinPrice(type,invite){
     const coin = await this.SNS.getCoinsInfo(type);
+    if(type!=1){
+      invite = emptyAddress;
+    }
     const price = await this.SNS.getPrice(invite)
     let coinPirce;
     switch (type) {
@@ -247,13 +250,13 @@ export class SNS {
     return price.keyPrice
   }
 
-  async getLowbCoinsPrice(invite) {
-    const price = await this.SNS.getPrice(invite)
+  async getLowbCoinsPrice() {
+    const price = await this.SNS.getPrice(emptyAddress)
     return price.lowbPrice
   }
 
-  async getUsdcCoinsPrice(invite) {
-    const price = await this.SNS.getPrice(invite)
+  async getUsdcCoinsPrice() {
+    const price = await this.SNS.getPrice(emptyAddress)
     return price.usdcPrice
   }
 
@@ -261,6 +264,9 @@ export class SNS {
   async mintByMoreCoins(name, coinsType,invite) {
     const signer = await getSigner()
     const SNS = this.SNS.connect(signer)
+    if(type!=1){
+      invite = emptyAddress
+    }
     return await SNS.mintByMoreCoins(name, coinsType,invite)
   }
 

@@ -31,7 +31,7 @@ const contracts = {
     registry: '0x19AD2b1F012349645C3173EA63F98948A2b43d27'
   },
   80001: {
-    registry: '0xbacA24b102caa1C1Aa9A7C84b9ea6268481E7838'
+    registry: '0x9eB9C38c37860FF89830c7442721e1cC4F69ea7B'
   }
 }
 
@@ -59,22 +59,33 @@ export class Invite {
 
   async addInviter() {
     const signer = await getSigner()
-    const SNS = this.SNS.connect(signer)
-    return await SNS.addInviter()
+    const Invite = this.Invite.connect(signer)
+    return await Invite.addInviter()
   }
 
   // sns name transfer
   async isInviter() {
     const address = await getAccount()
-    return await this.SNS.isInviter(address)
+    return await this.Invite.isInviter(address)
   }
+
+  async getApplyInviterPrice(){
+    return await this.Invite.getApplyInviterPrice()
+  }
+
+  async inviteDiscountRate(){
+    return await this.Invite.inviteDiscountRate()
+  }
+
+
+
 
   // Events
   async getInviterEvent(event, { topics, fromBlock }) {
     const provider = await getWeb3()
-    const { SNS } = this
+    const { Invite } = this
     const ensInterface = new utils.Interface(ensContract)
-    let Event = SNS.filters[event]()
+    let Event = Invite.filters[event]()
 
     const filter = {
       fromBlock,

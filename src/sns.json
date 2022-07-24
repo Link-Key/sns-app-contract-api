@@ -527,11 +527,6 @@
         "internalType": "string",
         "name": "name_",
         "type": "string"
-      },
-      {
-        "internalType": "address",
-        "name": "inviter_",
-        "type": "address"
       }
     ],
     "name": "mint",
