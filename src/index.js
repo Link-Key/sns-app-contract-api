@@ -66,12 +66,16 @@ export async function setupSNS({
   // get widthdraw instance
   const snsWithdraw = new SNSWithdraw({ provider, networkId, registryAddress: ensAddress })
 
+  // get sns and resolver instance
+  const invite = new Invite({ provider, networkId, registryAddress: ensAddress })
+
   const network = await getNetwork()
 
   return {
     sns,
     snsWithdraw,
     snsResolver,
+    invite,
     provider: customProvider,
     network,
     providerObject: provider

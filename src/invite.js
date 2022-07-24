@@ -78,7 +78,13 @@ export class Invite {
   }
 
   async getInviteCount(){
-    return await this.Invite.getInviteCount()
+    const address = await getAccount()
+    return await this.Invite.getInviteCount(address)
+  }
+
+  async getInviterIncome(){
+    const address = await getAccount()
+    return await this.Invite.getInviterIncome(address)
   }
 
   // Events
