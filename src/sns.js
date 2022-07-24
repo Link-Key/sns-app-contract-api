@@ -102,13 +102,24 @@ export class SNS {
     }
   }
 
+  // 0 addressRegistered: true
+  // 1 nameOfOwner: "peifeng22.key"
+  // 2 nameOfTokenId: ""
+  // 3 recordExists: false
+  // 4 resolverAddress: "0x0000000000000000000000000000000000000000"
+  // 5 resolverOwner: "0x0000000000000000000000000000000000000000"
+  // 6 shortNameAllowed: false
+  // 7 tokenIdOfName: BigNumber {_hex: '0x00', _isBigNumber: true}
+
   async getInfo(addr_,name_,tokenId_){
-    return await this.SNS.getInfo(addr_,name_,tokenId_)
+    const info = await this.SNS.getInfo(addr_,name_,tokenId_)
+    return info
   }
 
   async getShortNameAllowedlist() {
     const address = await getAccount()
-    return await getInfo(address,"",0).addressResp.shortNameAllowed;
+    const info = await this.getInfo(address,"",0)
+    return info[6]
   }
 
   // sns name transfer
@@ -121,12 +132,13 @@ export class SNS {
   // getSNSName
   //Get the registered SNSName by address
   async getNameOfOwner(address) {
-    return await getInfo(address,"",0).addressResp.nameOfOwner;
+    const info = await this.getInfo(address,"",0)
+    return info[2]
   }
 
   //Get the resolver address through SNSName
   async getResolverAddress(name) {
-    return await getInfo(emptyAddress,name,0).addressResp.resolverAddress;
+    return await this.getInfo(emptyAddress,name,0)[4];
   }
 
   //Custom parser
@@ -138,16 +150,16 @@ export class SNS {
 
   //Get resolverOwner address
   async getResolverOwner(name) {
-    return await getInfo(emptyAddress,name,0).addressResp.resolverOwner;
+    return await this.getInfo(emptyAddress,name,0)[5];
   }
 
   async getTokenIdOfName(name) {
-    return await getInfo(emptyAddress,name,0).addressResp.tokenIdOfName;
+    return await this.getInfo(emptyAddress,name,0)[7];
   }
 
   //Get recordExists
   async recordExists(name) {
-    return await getInfo(emptyAddress,name,0).addressResp.recordExists;
+    return await this.getInfo(emptyAddress,name,0)[3];
   }
 
   async getDomainDetails(name) {
