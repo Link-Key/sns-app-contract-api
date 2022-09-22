@@ -3,7 +3,7 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": true,
+        "indexed": false,
         "internalType": "string",
         "name": "name_",
         "type": "string"
@@ -19,6 +19,94 @@
         "internalType": "string",
         "name": "newContent",
         "type": "string"
+      },
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "ethAddress",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "btcAddress",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "ltcAddress",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "dogeAddress",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "ipfsUrl",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "url",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "avatar",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "notice",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "keywords",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "comGithub",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "comReddit",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "comTwitter",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "orgTelegram",
+            "type": "string"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct ResolverV2_4.Record",
+        "name": "record",
+        "type": "tuple"
       }
     ],
     "name": "ContentChanged",
@@ -28,7 +116,20 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": true,
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
+      }
+    ],
+    "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
         "internalType": "string",
         "name": "name_",
         "type": "string"

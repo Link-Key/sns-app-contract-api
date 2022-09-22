@@ -54,6 +54,19 @@
     "inputs": [
       {
         "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
+      }
+    ],
+    "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
         "internalType": "address",
         "name": "sender_",
         "type": "address"
@@ -380,9 +393,31 @@
             "internalType": "string",
             "name": "nameOfTokenId",
             "type": "string"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "maticPrice",
+                "type": "uint256"
+              },
+              {
+                "internalType": "address",
+                "name": "keyAddress",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "keyPrice",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct ISns.PriceOfShort",
+            "name": "priceOfShort",
+            "type": "tuple"
           }
         ],
-        "internalType": "struct SNSV2_3.Response",
+        "internalType": "struct ISns.Response",
         "name": "addressResp",
         "type": "tuple"
       }
@@ -437,6 +472,25 @@
       {
         "internalType": "bool",
         "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId_",
+        "type": "uint256"
+      }
+    ],
+    "name": "getStake",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "tokenStaked",
         "type": "bool"
       }
     ],
@@ -838,6 +892,49 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "shortLength_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "maticPrice_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "keyAddress_",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "keyPrice_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "offerEndingTime_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address[]",
+        "name": "addrs_",
+        "type": "address[]"
+      },
+      {
+        "internalType": "bool",
+        "name": "isFreeShortMint_",
+        "type": "bool"
+      }
+    ],
+    "name": "setShortMintParams",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address[]",
         "name": "addrs_",
         "type": "address[]"
@@ -849,6 +946,37 @@
       }
     ],
     "name": "setShortNameAllowed",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "staked",
+        "type": "bool"
+      }
+    ],
+    "name": "setStake",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "stakeAddress_",
+        "type": "address"
+      }
+    ],
+    "name": "setStakeAddress",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -895,11 +1023,16 @@
         "internalType": "string",
         "name": "name_",
         "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "payWay_",
+        "type": "uint256"
       }
     ],
     "name": "shortNameMint",
     "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "payable",
     "type": "function"
   },
   {
