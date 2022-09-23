@@ -276,9 +276,9 @@ export class SNS {
     const signer = await getSigner()
     const SNS = this.SNS.connect(signer)
     if(payWay == 1){
-      return await SNS.mintByMoreCoins([nameRemoveSuffix(name), payWay] ,{ value })
+      return await SNS.shortNameMint([nameRemoveSuffix(name), payWay] ,{ value })
     }else if(payWay == 2){
-      return await SNS.mintByMoreCoins([nameRemoveSuffix(name), payWay] ,{ value:0 })
+      return await SNS.shortNameMint([nameRemoveSuffix(name), payWay] ,{ value:0 })
     }else{
       return
     }
