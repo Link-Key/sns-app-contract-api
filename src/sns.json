@@ -384,6 +384,11 @@
         "internalType": "uint256",
         "name": "tokenId_",
         "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "inviter_",
+        "type": "address"
       }
     ],
     "name": "getInfo",

@@ -100,9 +100,10 @@ export class SNS {
     //   const value = await this.getRegisteredPrice()
     //   return await SNS.mint([nameRemoveSuffix(name),invite], { value })
     // }
-    console.log('coinsType:',coinsType)
+    console.log('registryCoinsType:',coinsType)
     if(coinsType === 0){
-      const value = await this.getRegisteredPrice()
+      const value = await this.getRegisteredPrice(invite)
+      console.log('registryValue:',value)
       return await SNS.mint(nameRemoveSuffix(name), coinsType, invite, { value })
     }else{
       return await SNS.mint(nameRemoveSuffix(name), coinsType, invite)
@@ -118,14 +119,14 @@ export class SNS {
   // 6 shortNameAllowed: false
   // 7 tokenIdOfName: BigNumber {_hex: '0x00', _isBigNumber: true}
 
-  async getInfo(addr_,name_,tokenId_){
-    const info = await this.SNS.getInfo(addr_,name_,tokenId_)
+  async getInfo(addr_,name_,tokenId_,inviter_){
+    const info = await this.SNS.getInfo(addr_,name_,tokenId_,inviter_)
     return info
   }
 
   async getShortNameAllowedlist() {
     const address = await getAccount()
-    const info = await this.getInfo(address,"",0)
+    const info = await this.getInfo(address,"",0,emptyAddress)
     return info.shortNameAllowed
   }
 
@@ -139,13 +140,13 @@ export class SNS {
   // getSNSName
   //Get the registered SNSName by address
   async getNameOfOwner(address) {
-    const info = await this.getInfo(address,"",0)
+    const info = await this.getInfo(address,"",0,emptyAddress)
     return info.nameOfOwner
   }
 
   //Get the resolver address through SNSName
   async getResolverAddress(name) {
-    const info = await this.getInfo(emptyAddress,name,0)
+    const info = await this.getInfo(emptyAddress,name,0,emptyAddress)
     return info.resolverAddress;
   }
 
@@ -158,18 +159,18 @@ export class SNS {
 
   //Get resolverOwner address
   async getResolverOwner(name) {
-    const info = await this.getInfo(emptyAddress,name,0)
+    const info = await this.getInfo(emptyAddress,name,0,emptyAddress)
     return info.resolverOwner;
   }
 
   async getTokenIdOfName(name) {
-    const info = await this.getInfo(emptyAddress,name,0)
+    const info = await this.getInfo(emptyAddress,name,0,emptyAddress)
     return info.tokenIdOfName;
   }
 
   //Get recordExists
   async recordExists(name) {
-    const info = await this.getInfo(emptyAddress,name,0)
+    const info = await this.getInfo(emptyAddress,name,0,emptyAddress)
     return info.recordExists;
   }
 
@@ -202,8 +203,8 @@ export class SNS {
     }
   }
 
-  async getRegisteredPrice() {
-    const price = await this.SNS.getPrice(emptyAddress)
+  async getRegisteredPrice(add) {
+    const price = await this.SNS.getPrice(add)
     return price.maticPrice
   }
 
@@ -262,8 +263,8 @@ export class SNS {
     return price.lowbPrice
   }
 
-  async getUsdcCoinsPrice() {
-    const price = await this.SNS.getPrice(emptyAddress)
+  async getUsdcCoinsPrice(add) {
+    const price = await this.SNS.getPrice(add)
     return price.usdcPrice
   }
 
