@@ -31,7 +31,7 @@ const contracts = {
     registry: '0x1Be596e965e2566d2f211fea6b09898d0956c04E'
   },
   80001: {
-    registry: '0xC4FD81B29BD4EE39E232622867D4864ad503aC4a'
+    registry: '0x4C3cF7c8dcABc5514d30311BFC3FEE62e832D1B0'
   }
 }
 
@@ -81,10 +81,10 @@ export class Invite {
     const address = await getAccount()
     return await this.Invite.getInviteCount(address)
   }
-
-  async getInviterIncome(){
+  // coinsType 0:key 1:matic 2:usdc
+  async getInviterIncome(coinsType){
     const address = await getAccount()
-    return await this.Invite.getInviterIncome(address)
+    return await this.Invite.getInviterIncome(address,coinsType)
   }
 
   // Events

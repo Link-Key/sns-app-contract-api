@@ -90,7 +90,7 @@ export class SNS {
 
 
   //registry
-  async registry(name,invite) {
+  async registry(name,coinsType,invite) {
     const signer = await getSigner()
     const SNS = this.SNS.connect(signer)
     // let isShortName = await this.getShortNameAllowedlist()
@@ -100,8 +100,13 @@ export class SNS {
     //   const value = await this.getRegisteredPrice()
     //   return await SNS.mint([nameRemoveSuffix(name),invite], { value })
     // }
-    const value = await this.getRegisteredPrice()
-    return await SNS.mint(nameRemoveSuffix(name), { value })
+    console.log('coinsType:',coinsType)
+    if(coinsType === 0){
+      const value = await this.getRegisteredPrice()
+      return await SNS.mint(nameRemoveSuffix(name), coinsType, invite, { value })
+    }else{
+      return await SNS.mint(nameRemoveSuffix(name), coinsType, invite)
+    }
   }
 
   // 0 addressRegistered: true
@@ -262,7 +267,7 @@ export class SNS {
     return price.usdcPrice
   }
 
-  // mint key coins 
+  // mint key coins
   async mintByMoreCoins(name, coinsType,invite) {
     const signer = await getSigner()
     const SNS = this.SNS.connect(signer)
@@ -272,13 +277,13 @@ export class SNS {
     return await SNS.mintByMoreCoins(name, coinsType,invite)
   }
 
-  async shortNameMint(name, payWay, value) {
+  async shortNameMint(name, payWay, inviteAdd,value) {
     const signer = await getSigner()
     const SNS = this.SNS.connect(signer)
     if(payWay == 1){
-      return await SNS.shortNameMint(nameRemoveSuffix(name), payWay ,{ value })
+      return await SNS.shortNameMint(nameRemoveSuffix(name), payWay ,inviteAdd,{ value })
     }else if(payWay == 2){
-      return await SNS.shortNameMint(nameRemoveSuffix(name), payWay ,{ value:0 })
+      return await SNS.shortNameMint(nameRemoveSuffix(name), payWay,inviteAdd ,{ value:0 })
     }else{
       return
     }

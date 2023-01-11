@@ -3,6 +3,19 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
+      }
+    ],
+    "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "previousOwner",
@@ -36,6 +49,25 @@
     "name": "addInviterCount",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "inviter_",
+        "type": "address"
+      }
+    ],
+    "name": "canInviter",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -98,8 +130,13 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "invite_",
+        "name": "inviter_",
         "type": "address"
+      },
+      {
+        "internalType": "uint8",
+        "name": "coinTypes",
+        "type": "uint8"
       }
     ],
     "name": "getInviterIncome",
@@ -197,8 +234,13 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "invite_",
+        "name": "inviter_",
         "type": "address"
+      },
+      {
+        "internalType": "uint8",
+        "name": "coinTypes",
+        "type": "uint8"
       },
       {
         "internalType": "uint256",
