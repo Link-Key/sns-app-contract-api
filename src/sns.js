@@ -130,13 +130,13 @@ export class SNS {
   // getSNSName
   //Get the registered SNSName by address
   async getNameOfOwner(address) {
-    const info = await this.getInfo(address,"",0,emptyAddress)
+    const info = await this.getInfo(address,"",0,)
     return info.nameOfOwner
   }
 
   //Get the resolver address through SNSName
   async getResolverAddress(name) {
-    const info = await this.getInfo(emptyAddress,name,0,emptyAddress)
+    const info = await this.getInfo(emptyAddress,name,0)
     return info.resolverAddress;
   }
 
@@ -193,50 +193,21 @@ export class SNS {
     }
   }
 
-  async getOtherCoinPrice(type,minter,name,inviter){
-    const coin = await this.SNS.getCoinsInfo(type);
 
+  async getPriceInfo(minter,name,inviter){
+    let  priceInfo = {};
+    const keyInfo = await this.SNS.getCoinsInfo(1);
+    const lowbInfo = await this.SNS.getCoinsInfo(2);
+    const usdcInfo = await this.SNS.getCoinsInfo(3);
     const price = await this.SNS.getPrice(minter,name,inviter)
-    let coinPirce;
-    switch (type) {
-      case 1:
-        coinPirce = price.keyPrice
-        break;
-      case 2:
-        coinPirce = price.lowbPrice
-        break;
-      case 3:
-        coinPirce = price.usdcPrice
-        break;
-      default:
-        break;
-    }
-    return {
-      address:coin[0],
-      price:coinPirce
-    }
-  }
-
-  // get key coins address
-  async getKeyCoinsAddress() {
-    const coinsInfo = await this.SNS.getCoinsInfo(1)
-    return coinsInfo[0]
-  }
-
-  async getLowbCoinsAddress() {
-    const coinsInfo = await this.SNS.getCoinsInfo(2)
-    console.log(coinsInfo)
-    return coinsInfo[0]
-  }
-
-  async getUsdcCoinsAddress() {
-    const coinsInfo = await this.SNS.getCoinsInfo(3)
-    console.log(coinsInfo)
-    return coinsInfo[0]
-  }
-
-  async getPrice(minter,name,invite){
-    return  await this.SNS.getPrice(minter,name,invite)
+    priceInfo.maticPrice = price.maticPrice;
+    priceInfo.keyPrice = price.keyPrice;
+    priceInfo.keyAddress = keyInfo[0];
+    priceInfo.lowbPrice = price.lowbPrice;
+    priceInfo.lowbAddress = lowbInfo[0];
+    priceInfo.usdcPrice = price.keyPrice;
+    priceInfo.usdcAddress = usdcInfo[0];
+    return priceInfo
   }
 
 
