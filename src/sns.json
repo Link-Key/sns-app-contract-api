@@ -384,11 +384,6 @@
         "internalType": "uint256",
         "name": "tokenId_",
         "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "inviter_",
-        "type": "address"
       }
     ],
     "name": "getInfo",
@@ -434,28 +429,6 @@
             "internalType": "string",
             "name": "nameOfTokenId",
             "type": "string"
-          },
-          {
-            "components": [
-              {
-                "internalType": "uint256",
-                "name": "maticPrice",
-                "type": "uint256"
-              },
-              {
-                "internalType": "address",
-                "name": "keyAddress",
-                "type": "address"
-              },
-              {
-                "internalType": "uint256",
-                "name": "keyPrice",
-                "type": "uint256"
-              }
-            ],
-            "internalType": "struct ISns.PriceOfShort",
-            "name": "priceOfShort",
-            "type": "tuple"
           }
         ],
         "internalType": "struct ISns.Response",
@@ -470,6 +443,16 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "minter_",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "name_",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
         "name": "inviter_",
         "type": "address"
       }
@@ -477,24 +460,31 @@
     "name": "getPrice",
     "outputs": [
       {
-        "internalType": "uint256",
-        "name": "maticPrice",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "keyPrice",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "lowbPrice",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "usdcPrice",
-        "type": "uint256"
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "maticPrice",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "keyPrice",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "lowbPrice",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "usdcPrice",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct ISns.PriceInfo",
+        "name": "priceInfo",
+        "type": "tuple"
       }
     ],
     "stateMutability": "view",
@@ -880,6 +870,19 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "freeMintLength",
+        "type": "uint256"
+      }
+    ],
+    "name": "setSystemInfo",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256[]",
         "name": "tokenIds_",
         "type": "uint256[]"
@@ -893,29 +896,6 @@
     "name": "setTokenURI",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "name_",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "payWay_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "inviter_",
-        "type": "address"
-      }
-    ],
-    "name": "shortNameMint",
-    "outputs": [],
-    "stateMutability": "payable",
     "type": "function"
   },
   {

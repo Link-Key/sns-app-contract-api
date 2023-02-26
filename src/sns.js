@@ -90,23 +90,19 @@ export class SNS {
 
 
   //registry
-  async registry(name,coinsType,invite) {
+  async mint(name,coinsType,inviter) {
     const signer = await getSigner()
     const SNS = this.SNS.connect(signer)
-    // let isShortName = await this.getShortNameAllowedlist()
-    // if (isShortName) {
-    //   return await SNS.shortNameMint(nameRemoveSuffix(name))
-    // } else {
-    //   const value = await this.getRegisteredPrice()
-    //   return await SNS.mint([nameRemoveSuffix(name),invite], { value })
-    // }
+
+    const minter = await getAccount()
     console.log('registryCoinsType:',coinsType)
     if(coinsType === 0){
-      const value = await this.getRegisteredPrice(invite)
+      const price = await this.getPrice(minter,nameRemoveSuffix(name),inviter)
+      const value = price.maticPrice;
       console.log('registryValue:',value)
-      return await SNS.mint(nameRemoveSuffix(name), coinsType, invite, { value })
+      return await SNS.mint(nameRemoveSuffix(name), coinsType, inviter, { value })
     }else{
-      return await SNS.mint(nameRemoveSuffix(name), coinsType, invite)
+      return await SNS.mint(nameRemoveSuffix(name), coinsType, inviter)
     }
   }
 
@@ -119,15 +115,9 @@ export class SNS {
   // 6 shortNameAllowed: false
   // 7 tokenIdOfName: BigNumber {_hex: '0x00', _isBigNumber: true}
 
-  async getInfo(addr_,name_,tokenId_,inviter_){
-    const info = await this.SNS.getInfo(addr_,name_,tokenId_,inviter_)
+  async getInfo(addr_,name_,tokenId_){
+    const info = await this.SNS.getInfo(addr_,name_,tokenId_)
     return info
-  }
-
-  async getShortNameAllowedlist() {
-    const address = await getAccount()
-    const info = await this.getInfo(address,"",0,emptyAddress)
-    return info.shortNameAllowed
   }
 
   // sns name transfer
@@ -159,18 +149,18 @@ export class SNS {
 
   //Get resolverOwner address
   async getResolverOwner(name) {
-    const info = await this.getInfo(emptyAddress,name,0,emptyAddress)
+    const info = await this.getInfo(emptyAddress,name,0)
     return info.resolverOwner;
   }
 
   async getTokenIdOfName(name) {
-    const info = await this.getInfo(emptyAddress,name,0,emptyAddress)
+    const info = await this.getInfo(emptyAddress,name,0)
     return info.tokenIdOfName;
   }
 
   //Get recordExists
   async recordExists(name) {
-    const info = await this.getInfo(emptyAddress,name,0,emptyAddress)
+    const info = await this.getInfo(emptyAddress,name,0)
     return info.recordExists;
   }
 
@@ -203,17 +193,10 @@ export class SNS {
     }
   }
 
-  async getRegisteredPrice(add) {
-    const price = await this.SNS.getPrice(add)
-    return price.maticPrice
-  }
-
-  async getOtherCoinPrice(type,invite){
+  async getOtherCoinPrice(type,minter,name,inviter){
     const coin = await this.SNS.getCoinsInfo(type);
-    if(type!=1){
-      invite = emptyAddress;
-    }
-    const price = await this.SNS.getPrice(invite)
+
+    const price = await this.SNS.getPrice(minter,name,inviter)
     let coinPirce;
     switch (type) {
       case 1:
@@ -252,43 +235,11 @@ export class SNS {
     return coinsInfo[0]
   }
 
-  // get key coins price
-  async getKeyCoinsPrice(invite) {
-    const price = await this.SNS.getPrice(invite)
-    return price.keyPrice
+  async getPrice(minter,name,invite){
+    return  await this.SNS.getPrice(minter,name,invite)
   }
 
-  async getLowbCoinsPrice() {
-    const price = await this.SNS.getPrice(emptyAddress)
-    return price.lowbPrice
-  }
 
-  async getUsdcCoinsPrice(add) {
-    const price = await this.SNS.getPrice(add)
-    return price.usdcPrice
-  }
-
-  // mint key coins
-  async mintByMoreCoins(name, coinsType,invite) {
-    const signer = await getSigner()
-    const SNS = this.SNS.connect(signer)
-    if(coinsType!=1){
-      invite = emptyAddress
-    }
-    return await SNS.mintByMoreCoins(name, coinsType,invite)
-  }
-
-  async shortNameMint(name, payWay, inviteAdd,value) {
-    const signer = await getSigner()
-    const SNS = this.SNS.connect(signer)
-    if(payWay == 1){
-      return await SNS.shortNameMint(nameRemoveSuffix(name), payWay ,inviteAdd,{ value })
-    }else if(payWay == 2){
-      return await SNS.shortNameMint(nameRemoveSuffix(name), payWay,inviteAdd ,{ value:0 })
-    }else{
-      return
-    }
-  }
 
   // Events
 
