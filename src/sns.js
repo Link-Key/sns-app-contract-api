@@ -104,6 +104,7 @@ export class SNS {
     let coinPrice = 0;
     let allowanceValue;
     let erc20;
+    const provider = await getProvider()
     switch (coinsType) {
       case 0:
         coinPrice = priceInfo.maticPrice;
@@ -111,7 +112,7 @@ export class SNS {
       case 1:
         coinAddress = priceInfo.keyAddress;
         coinPrice = priceInfo.keyPrice;
-        erc20 = new SNSIERC20(coinAddress,await getProvider());
+        erc20 = new SNSIERC20(coinAddress,provider);
         allowanceValue = await erc20.allowance(minter,this.registryAddress);
         if(allowanceValue<coinPrice){
           await erc20.approve(this.registryAddress,coinPrice);
@@ -120,7 +121,7 @@ export class SNS {
       case 2:
         coinAddress = priceInfo.lowbAddress;
         coinPrice = priceInfo.lowbPrice;
-        erc20 = new SNSIERC20(coinAddress,await getProvider());
+        erc20 = new SNSIERC20(coinAddress,provider);
         allowanceValue = await erc20.allowance(minter,this.registryAddress);
         if(allowanceValue<coinPrice){
           await erc20.approve(this.registryAddress,coinPrice);
@@ -129,7 +130,7 @@ export class SNS {
       case 3:
         coinAddress = priceInfo.usdcAddress;
         coinPrice = priceInfo.usdcPrice;
-        erc20 = new SNSIERC20(coinAddress,await getProvider());
+        erc20 = new SNSIERC20({registryAddress:coinAddress,provider});
         allowanceValue = await erc20.allowance(minter,this.registryAddress);
         if(allowanceValue<coinPrice){
           await erc20.approve(this.registryAddress,coinPrice);
@@ -138,7 +139,7 @@ export class SNS {
       default:
         break;
     }
-    return await SNS.mint(nameRemoveSuffix(name), coinsType, inviter, { value:coinPrice })
+    return await SNS.mint(nameRemoveSuffix(name), coinsType, inviter, { value:coinsType === 0 ? coinPrice : 0 })
   }
 
   // 0 addressRegistered: true
