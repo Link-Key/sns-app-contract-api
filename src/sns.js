@@ -12,6 +12,8 @@ import { formatsByName } from '@ensdomains/address-encoder'
 
 import { decryptHashes } from './preimage'
 
+import {SNSIERC20} from './IERC20'
+
 import {
   uniq,
   getEnsStartBlock,
@@ -96,14 +98,47 @@ export class SNS {
 
     const minter = await getAccount()
     console.log('registryCoinsType:',coinsType)
-    if(coinsType === 0){
-      const price = await this.getPrice(minter,nameRemoveSuffix(name),inviter)
-      const value = price.maticPrice;
-      console.log('registryValue:',value)
-      return await SNS.mint(nameRemoveSuffix(name), coinsType, inviter, { value })
-    }else{
-      return await SNS.mint(nameRemoveSuffix(name), coinsType, inviter)
+
+    const priceInfo = await this.getPriceInfo(minter,nameRemoveSuffix(name),inviter);
+    let coinAddress;
+    let coinPrice = 0;
+    let allowanceValue;
+    let erc20;
+    switch (coinsType) {
+      case 0:
+        coinPrice = priceInfo.maticPrice;
+        break;
+      case 1:
+        coinAddress = priceInfo.keyAddress;
+        coinPrice = priceInfo.keyPrice;
+        erc20 = new SNSIERC20(coinAddress,await getProvider());
+        allowanceValue = await erc20.allowance(minter,this.registryAddress);
+        if(allowanceValue<coinPrice){
+          await erc20.approve(this.registryAddress,coinPrice);
+        }
+        break;
+      case 2:
+        coinAddress = priceInfo.lowbAddress;
+        coinPrice = priceInfo.lowbPrice;
+        erc20 = new SNSIERC20(coinAddress,await getProvider());
+        allowanceValue = await erc20.allowance(minter,this.registryAddress);
+        if(allowanceValue<coinPrice){
+          await erc20.approve(this.registryAddress,coinPrice);
+        }
+        break;
+      case 3:
+        coinAddress = priceInfo.usdcAddress;
+        coinPrice = priceInfo.usdcPrice;
+        erc20 = new SNSIERC20(coinAddress,await getProvider());
+        allowanceValue = await erc20.allowance(minter,this.registryAddress);
+        if(allowanceValue<coinPrice){
+          await erc20.approve(this.registryAddress,coinPrice);
+        }
+        break;
+      default:
+        break;
     }
+    return await SNS.mint(nameRemoveSuffix(name), coinsType, inviter, { value:coinPrice })
   }
 
   // 0 addressRegistered: true
