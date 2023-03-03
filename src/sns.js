@@ -166,8 +166,8 @@ export class SNS {
   // getSNSName
   //Get the registered SNSName by address
   async getNameOfOwner(address) {
-    const info = await this.getInfo(address,"",0,)
-    return info.nameOfOwner
+    const info = await this.getInfo(address,"",0)
+    return info.nameOfOwner;
   }
 
   //Get the resolver address through SNSName
