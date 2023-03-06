@@ -241,7 +241,7 @@ export class SNS {
     priceInfo.keyAddress = keyInfo[0];
     priceInfo.lowbPrice = price.lowbPrice;
     priceInfo.lowbAddress = lowbInfo[0];
-    priceInfo.usdcPrice = price.keyPrice;
+    priceInfo.usdcPrice = price.usdcPrice;
     priceInfo.usdcAddress = usdcInfo[0];
     return priceInfo
   }
