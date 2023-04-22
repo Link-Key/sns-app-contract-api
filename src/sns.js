@@ -92,14 +92,14 @@ export class SNS {
 
 
   //registry
-  async mint(name,coinsType,inviter) {
+  async mint(name,coinsType,inviter,merkleProof_) {
     const signer = await getSigner()
     const SNS = this.SNS.connect(signer)
 
     const minter = await getAccount()
     console.log('registryCoinsType:',coinsType)
 
-    const priceInfo = await this.getPriceInfo(minter,nameRemoveSuffix(name),inviter);
+    const priceInfo = await this.getPriceInfo(minter,nameRemoveSuffix(name),inviter,merkleProof_);
     let coinAddress;
     let coinPrice = 0;
     let allowanceValue;
@@ -139,7 +139,7 @@ export class SNS {
       default:
         break;
     }
-    return await SNS.mint(nameRemoveSuffix(name), coinsType, inviter, { value:coinsType === 0 ? coinPrice : 0 })
+    return await SNS.mint(nameRemoveSuffix(name), coinsType, inviter,merkleProof_, { value:coinsType === 0 ? coinPrice : 0 })
   }
 
   // 0 addressRegistered: true
@@ -230,12 +230,12 @@ export class SNS {
   }
 
 
-  async getPriceInfo(minter,name,inviter){
+  async getPriceInfo(minter,name,inviter,merkleProof_){
     let  priceInfo = {};
     const keyInfo = await this.SNS.getCoinsInfo(1);
     const lowbInfo = await this.SNS.getCoinsInfo(2);
     const usdcInfo = await this.SNS.getCoinsInfo(3);
-    const price = await this.SNS.getPrice(minter,name,inviter)
+    const price = await this.SNS.getPrice(minter,name,inviter,merkleProof_)
     priceInfo.maticPrice = price.maticPrice;
     priceInfo.keyPrice = price.keyPrice;
     priceInfo.keyAddress = keyInfo[0];

@@ -113,6 +113,24 @@
         "internalType": "uint256",
         "name": "tokenId",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "inviter",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "coinsType",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
       }
     ],
     "name": "Mint",
@@ -455,6 +473,11 @@
         "internalType": "address",
         "name": "inviter_",
         "type": "address"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "merkleProof_",
+        "type": "bytes32[]"
       }
     ],
     "name": "getPrice",
@@ -485,25 +508,6 @@
         "internalType": "struct ISns.PriceInfo",
         "name": "priceInfo",
         "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "addr_",
-        "type": "address"
-      }
-    ],
-    "name": "getShortNameAllowedlist",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -545,19 +549,6 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "inviteAddress_",
-        "type": "address"
-      }
-    ],
-    "name": "initializeInvite",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
         "name": "owner",
         "type": "address"
       },
@@ -568,6 +559,35 @@
       }
     ],
     "name": "isApprovedForAll",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr_",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "root_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "merkleProof_",
+        "type": "bytes32[]"
+      }
+    ],
+    "name": "isMerk",
     "outputs": [
       {
         "internalType": "bool",
@@ -594,6 +614,11 @@
         "internalType": "address",
         "name": "inviter_",
         "type": "address"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "merkleProof_",
+        "type": "bytes32[]"
       }
     ],
     "name": "mint",
@@ -725,126 +750,12 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "newCoinsType_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "newCoinsAddress_",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "coinsPrice_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "coinsDestroy_",
-        "type": "bool"
-      },
-      {
-        "internalType": "uint256",
-        "name": "coinsDestroyPercentage_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "isClose",
-        "type": "bool"
-      }
-    ],
-    "name": "setCoins",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "offerStartTime_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "offerPeriod_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "offerTime_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "offerRate_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "offerOpen_",
-        "type": "bool"
-      }
-    ],
-    "name": "setIsOffer",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "bool",
         "name": "isOnlySetOnce_",
         "type": "bool"
       }
     ],
     "name": "setIsOnlySetOnce",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "shortLength_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "maticPrice_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "keyAddress_",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "keyPrice_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "offerEndingTime_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address[]",
-        "name": "addrs_",
-        "type": "address[]"
-      },
-      {
-        "internalType": "bool",
-        "name": "isFreeShortMint_",
-        "type": "bool"
-      }
-    ],
-    "name": "setShortMintParams",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -870,19 +781,6 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "freeMintLength",
-        "type": "uint256"
-      }
-    ],
-    "name": "setSystemInfo",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "uint256[]",
         "name": "tokenIds_",
         "type": "uint256[]"
@@ -894,6 +792,29 @@
       }
     ],
     "name": "setTokenURI",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "threeMerkleRoot_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "fourSevenMerkleRoot_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "eightPlusMerkleRoot_",
+        "type": "bytes32"
+      }
+    ],
+    "name": "setWhiteListInfo",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
